@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Sucursal Management System</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <div class="container my-2">
+        <h1>Sucursals List</h1>
+
+        <a th:href="@{/sucursals/addView}" class="btn btn-primary btn-sm mb-3">Add Sucursal</a>
+
+        <table class="table table-striped table-responsive-md">
+            <thead>
+                <tr>
+                    <th>Nom Sucursal</th>
+                    <th>Pais Sucursal</th>
+                    <th>Tipus Sucursal</th>
+                    <th> Actions </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="sucursalDto : ${sucursalsList}">
+                    <td th:text="${sucursalDto.nomSucursal}"></td>
+                    <td th:text="${sucursalDto.paisSucursal}"></td>
+                    <td th:text="${sucursalDto.tipusSucursal}"></td>
+                    <td> <a th:href="@{/sucursals/updateView/{id}(id=${sucursalDto.pk_SucursalID})}" class="btn btn-primary">Update</a>
+                         <a th:href="@{/sucursals/deleteView/{id}(id=${sucursalDto.pk_SucursalID})}" class="btn btn-danger">Delete</a>
+                         <a th:href="@{/sucursals/getOneView/{id}(id=${sucursalDto.pk_SucursalID})}" class="btn btn-primary">Get One</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  </body>
+</html>
