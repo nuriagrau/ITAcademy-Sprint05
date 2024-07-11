@@ -12,7 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 public class FlorDTO {
 
-
     private int pk_FlorID;
 
     private String nomFlor;
