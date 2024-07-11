@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/sucursals")
-// to improve add /view or /web here and keep the rest without view in the name
-// add also showOne template and succes & error templates if possible
 public class ViewController {
     private final SucursalService sucursalService;
 
@@ -54,7 +52,7 @@ public class ViewController {
 
     @PostMapping(path="/updateViewSucursal")
     public String updateSucursalByView(@ModelAttribute("sucursalDto") SucursalDTO sucursalDto) {
-        sucursalService.updateSucursal(sucursalDto.getPk_SucursalID(),sucursalDto);
+        sucursalService.updateSucursal(sucursalDto);
 
         return "redirect:/sucursals/";
     }
@@ -66,7 +64,6 @@ public class ViewController {
 
         return "redirect:/sucursals/";
     }
-
 
 
     @GetMapping(path="/getOneView/{id}")

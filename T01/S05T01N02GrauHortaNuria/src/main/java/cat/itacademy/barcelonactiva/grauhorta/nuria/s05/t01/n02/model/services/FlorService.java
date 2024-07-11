@@ -7,9 +7,10 @@ import java.util.List;
 public interface FlorService {
 
 
+
     FlorDTO createFlor(FlorDTO florDto);
 
-    FlorDTO updateFlor(int id, FlorDTO florDTO);
+    FlorDTO updateFlor(FlorDTO florDTO);
 
     int deleteFlor(int pk_FlorID);
 

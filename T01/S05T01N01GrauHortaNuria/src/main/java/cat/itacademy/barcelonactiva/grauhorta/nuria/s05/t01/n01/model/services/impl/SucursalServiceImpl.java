@@ -37,22 +37,22 @@ public class SucursalServiceImpl implements SucursalService {
                 .ifPresent(foundSucursal -> {
                     throw new SucursalAlreadyExistsException("The sucursal " + sucursalDto.getNomSucursal() + " already exists");
                 });
+
         return mapper.toDto(sucursalRepository.save(newSucursal));
     }
 
     @Override
-    public SucursalDTO updateSucursal(int pk_SucursalID, SucursalDTO sucursalDTO) {
-        /*if (int == null) {
-            throw new IllegalArgumentException("Sucursal Id cannot be null");
-        }*/
-        Sucursal existingSucursal = sucursalRepository.findById(pk_SucursalID)
-                .orElseThrow(()-> new SucursalNotFoundException("Sucursal with id " + pk_SucursalID + " not found."));
-        if (sucursalDTO.getNomSucursal() != null && (sucursalDTO.getNomSucursal() != "")) {
-            existingSucursal.setNomSucursal(sucursalDTO.getNomSucursal());
+    public SucursalDTO updateSucursal(SucursalDTO sucursalDto) {
+
+        Sucursal existingSucursal = sucursalRepository.findById(sucursalDto.getPk_SucursalID())
+                .orElseThrow(()-> new SucursalNotFoundException("Sucursal with id " + sucursalDto.getPk_SucursalID() + " not found."));
+        if (sucursalDto.getNomSucursal() != null && (sucursalDto.getNomSucursal() != "")) {
+            existingSucursal.setNomSucursal(sucursalDto.getNomSucursal());
         }
-        if (sucursalDTO.getPaisSucursal() != null && (sucursalDTO.getPaisSucursal() != "")) {
-            existingSucursal.setPaisSucursal(sucursalDTO.getPaisSucursal());
+        if (sucursalDto.getPaisSucursal() != null && (sucursalDto.getPaisSucursal() != "")) {
+            existingSucursal.setPaisSucursal(sucursalDto.getPaisSucursal());
         }
+
         return mapper.toDto(sucursalRepository.save(existingSucursal));
     }
 
@@ -61,11 +61,13 @@ public class SucursalServiceImpl implements SucursalService {
         Sucursal existingSucursal = sucursalRepository.findById(pk_SucursalID)
                 .orElseThrow(() -> new SucursalNotFoundException("Sucursal with id " + pk_SucursalID + " not found."));
         sucursalRepository.deleteById(existingSucursal.getPk_SucursalID());
+
         return pk_SucursalID;
     }
 
     @Override
-    public SucursalDTO getOneSucursal(int id) {;
+    public SucursalDTO getOneSucursal(int id) {
+
         return mapper.toDto(sucursalRepository.findById(id).orElseThrow(() -> new SucursalNotFoundException("Sucursal with id " + id + " not found")));
     }
 
@@ -74,6 +76,7 @@ public class SucursalServiceImpl implements SucursalService {
         List<SucursalDTO> dtoSucursals = sucursalRepository.findAll().stream()
                 .map(mapper::toDto)
                 .collect(toList());
+
         return dtoSucursals;
     }
 

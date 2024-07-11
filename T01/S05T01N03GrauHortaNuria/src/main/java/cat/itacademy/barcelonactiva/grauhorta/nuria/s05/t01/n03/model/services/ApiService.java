@@ -1,35 +1,71 @@
 package cat.itacademy.barcelonactiva.grauhorta.nuria.s05.t01.n03.model.services;
 
+import cat.itacademy.barcelonactiva.grauhorta.nuria.s05.t01.n03.model.dto.FlorDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 
 @Service
 public class ApiService {
 
     private final WebClient webClientApi9001;
-    private final WebClient webClientApi9002;
 
     @Autowired
-    public ApiService(WebClient webClientApi9001, WebClient webClientApi9002) {
+    public ApiService(WebClient webClientApi9001) {
         this.webClientApi9001 = webClientApi9001;
-        this.webClientApi9002 = webClientApi9002;
     }
 
-    public Mono<String> getFromApi9001(String endpoint) {
+
+
+    public Mono<FlorDTO> addFlorDTOFromApi9001(String endpoint, FlorDTO florDto) {
+        return webClientApi9001.post()
+                .uri(endpoint)
+                .bodyValue(florDto)
+                .retrieve()
+                .bodyToMono(FlorDTO.class);
+    }
+
+
+    public Mono<FlorDTO> updateOneFlorDTOFromApi9001(String endpoint, FlorDTO florDto) {
+        return webClientApi9001.put()
+                .uri(endpoint)
+                .bodyValue(florDto)
+                .retrieve()
+                .bodyToMono(FlorDTO.class);
+    }
+
+
+    public Mono<Integer> deleteOneFlorDTOFromApi9001(String endpoint, int id) {
+        return webClientApi9001.delete()
+                .uri(uriBuilder -> uriBuilder
+                        .path(endpoint)
+                        .build(id))
+                .retrieve()
+                .bodyToMono(Integer.class);
+    }
+
+
+    public Mono<FlorDTO> getOneFlorDTOFromApi9001(String endpoint, int id) {
+        return webClientApi9001.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(endpoint)
+                        .build(id))
+                .retrieve()
+                .bodyToMono(FlorDTO.class);
+    }
+
+
+
+    public Mono<List<FlorDTO>> getListFlorDTOFromApi9001(String endpoint) {
         return webClientApi9001.get()
                 .uri(endpoint)
                 .retrieve()
-                .bodyToMono(String.class);
-    }
-
-    public Mono<String> getFromApi9002(String endpoint) {
-        return webClientApi9002.get()
-                .uri(endpoint)
-                .retrieve()
-                .bodyToMono(String.class);
+                .bodyToFlux(FlorDTO.class)
+                .collectList();
     }
 
 }

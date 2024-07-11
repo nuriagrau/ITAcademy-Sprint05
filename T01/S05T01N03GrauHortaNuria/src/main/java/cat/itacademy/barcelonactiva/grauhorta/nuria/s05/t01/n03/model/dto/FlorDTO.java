@@ -28,6 +28,13 @@ public class FlorDTO {
         euCountries = Arrays.asList("Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Czechia", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Sweden");
     }
 
+
+    public FlorDTO(String nomFlor, String paisFlor) {
+        this.nomFlor = nomFlor;
+        this.paisFlor = paisFlor;
+        this.tipusFlor = findTipusFlor(paisFlor);
+    }
+
     public FlorDTO(int pk_FlorID, String nomFlor, String paisFlor) {
         this.pk_FlorID = pk_FlorID;
         this.nomFlor = nomFlor;

@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 public class Mapper {
 
     public SucursalDTO toDto(Sucursal sucursal) {
+
         int pk_SucursalID = sucursal.getPk_SucursalID();
 
         String nomSucursal = sucursal.getNomSucursal();

@@ -10,7 +10,7 @@ public interface SucursalService {
 
     SucursalDTO createSucursal(SucursalDTO sucursalDto);
 
-    SucursalDTO updateSucursal(int pk_SucursalID, SucursalDTO sucursalDto);
+    SucursalDTO updateSucursal(SucursalDTO sucursalDto);
 
     Integer deleteSucursal(int pk_SucursalID);
 

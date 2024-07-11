@@ -24,6 +24,7 @@ public class SucursalController {
     }
 
 
+
     @PostMapping(path="/add")
     public ResponseEntity<SucursalDTO> saveSucursal(@RequestBody SucursalDTO sucursalDto) {
         sucursalService.createSucursal(sucursalDto);
@@ -31,10 +32,10 @@ public class SucursalController {
 
     }
 
-    @PutMapping(path="/update/{id}")
-    public ResponseEntity<SucursalDTO> updateSucursal(@PathVariable int id, @RequestBody SucursalDTO sucursalDto) {
+    @PutMapping(path="/update")
+    public ResponseEntity<SucursalDTO> updateSucursal(@RequestBody SucursalDTO sucursalDto) {
 
-        return new ResponseEntity<>(sucursalService.updateSucursal(id, sucursalDto),HttpStatus.OK);
+        return new ResponseEntity<>(sucursalService.updateSucursal(sucursalDto),HttpStatus.OK);
     }
 
 

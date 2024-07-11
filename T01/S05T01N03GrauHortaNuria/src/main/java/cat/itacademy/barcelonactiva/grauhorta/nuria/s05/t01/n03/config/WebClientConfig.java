@@ -13,11 +13,4 @@ public class WebClientConfig {
                 .baseUrl("http://localhost:9001")
                 .build();
     }
-
-    @Bean
-    public WebClient webClientApi9002() {
-        return WebClient.builder()
-                .baseUrl("http://localhost:9002")
-                .build();
-    }
 }

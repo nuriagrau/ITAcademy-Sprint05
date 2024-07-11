@@ -8,14 +8,12 @@ import java.util.stream.Collectors;
 public class Mapper {
 
 
-
     public FlorDTO toDto(FlorEntity florEntity) {
         int pk_FlorID = florEntity.getPk_FlorID();
         String nomFlor = florEntity.getNomFlor();
         String paisFlor = florEntity.getPaisFlor();
 
         FlorDTO florDTO = new FlorDTO(pk_FlorID, nomFlor, paisFlor);
-
         return florDTO;
     }
 
