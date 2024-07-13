@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class Sucursal {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int pk_SucursalID;
 
     @Column(name="nom_sucursal")

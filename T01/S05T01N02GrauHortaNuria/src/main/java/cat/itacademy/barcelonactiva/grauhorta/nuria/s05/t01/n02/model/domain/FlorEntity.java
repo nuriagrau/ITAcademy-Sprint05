@@ -14,7 +14,7 @@ public class FlorEntity {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pk_FlorID;
 
     @Column(name="nomFlor")
