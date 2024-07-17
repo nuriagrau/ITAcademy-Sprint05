@@ -1,0 +1,1 @@
+db.createCollection('games', {validator: {$jsonSchema: {bsonType: 'object',title: 'games',required: ['gameId','dice1','dice2','wins','playerId', 'winRate', 'timestamp'],properties:{gameId:{bsonType: 'objectId'},dice1:{bsonType: 'int'},dice2:{bsonType: 'int'},wins:{bsonType: 'boolean'},playerId:{bsonType: 'int'},winRate:{bsonType: 'double'},gameDate:{bsonType: 'date'}}}}});
