@@ -21,13 +21,11 @@ import static java.lang.Math.round;
 public class GameServiceImpl implements GameService {
 
 
-    private GameRepository gameRepository;
+    private final GameRepository gameRepository;
 
+    private final PlayerRepository playerRepository;
 
-    private PlayerRepository playerRepository;
-
-
-    private GameMapper gameMapper;
+    private final GameMapper gameMapper;
 
     private final DiceGameService diceGameService;
 

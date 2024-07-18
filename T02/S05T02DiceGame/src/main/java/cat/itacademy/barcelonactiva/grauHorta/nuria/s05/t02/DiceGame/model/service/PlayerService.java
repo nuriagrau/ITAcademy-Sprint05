@@ -20,4 +20,5 @@ public interface PlayerService {
 
     PlayerDTO getWinner();
 
+    Integer deletePlayer(int id);
 }
