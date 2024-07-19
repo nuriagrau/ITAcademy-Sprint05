@@ -2,9 +2,9 @@ package cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.serv
 
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.domain.Player;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.dto.PlayerDTO;
-import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.exceptions.EmptyGamesListException;
-import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.exceptions.PlayerAlreadyExistsException;
-import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.exceptions.PlayerNotFoundException;
+import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.exceptions.EmptyGamesListException;
+import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.exceptions.PlayerAlreadyExistsException;
+import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.exceptions.PlayerNotFoundException;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.mapper.PlayerMapper;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.repository.GameRepository;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.repository.PlayerRepository;

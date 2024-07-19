@@ -3,15 +3,14 @@ package cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.doma
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.enums.Role;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
-
-import java.util.ArrayList;
 import java.util.Date;
-
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.List;
 
@@ -33,11 +32,13 @@ public class User {
     private String userName;
 
     @Column
+    @Email(regexp = ".+@.+\\..+", message = "User email must contain @ and .something")
     @NotEmpty(message = "User email may not be empty")
     private String email;
 
     @Column
-    @NotEmpty(message = "User password may not be empty")
+    @Length(min = 4,  message = "User password must be 4 characters minimum lenght.")
+    @NotEmpty(message = "User password may not be empty.")
     private String password;
 
     @Column(name="registration_date", updatable = false)

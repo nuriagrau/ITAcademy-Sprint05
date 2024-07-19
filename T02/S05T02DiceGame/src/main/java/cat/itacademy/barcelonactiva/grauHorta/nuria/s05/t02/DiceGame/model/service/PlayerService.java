@@ -1,10 +1,9 @@
 package cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.service;
 
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.dto.PlayerDTO;
-import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.exceptions.EmptyGamesListException;
+import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.exceptions.EmptyGamesListException;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface PlayerService {
 
