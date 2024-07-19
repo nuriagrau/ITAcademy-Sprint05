@@ -2,6 +2,5 @@ package cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.enum
 
 public enum Role {
     USER,
-    ADMIN,
-    NO_ROLE
+    ADMIN
 }
