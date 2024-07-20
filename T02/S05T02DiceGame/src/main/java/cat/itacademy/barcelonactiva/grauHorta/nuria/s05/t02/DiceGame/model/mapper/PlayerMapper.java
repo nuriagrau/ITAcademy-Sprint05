@@ -4,18 +4,21 @@ import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.domai
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.domain.User;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.dto.PlayerDTO;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 public class PlayerMapper {
 
-    //UserRepository userRepository;
+    UserRepository userRepository;
 
-    /*public PlayerMapper(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }*/
 
     public PlayerDTO toDto(Player player) {
 
@@ -35,9 +38,10 @@ public class PlayerMapper {
     public Player toEntity(PlayerDTO playerDto) {
         //String playerName = playerDto.getPlayerName();
         //playerName = (playerName.equalsIgnoreCase("") ? playerDto.getPlayerName() : "ANONYM");
-        //User user = userRepository.getReferenceById(playerDto.getUserId());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findUserByEmail(authentication.getName()).orElseThrow(() -> new UsernameNotFoundException("Current user cannot be found"));
 
-        return new Player(playerDto.getPlayerName());
+        return new Player(playerDto.getPlayerName(), user);
     }
 
 

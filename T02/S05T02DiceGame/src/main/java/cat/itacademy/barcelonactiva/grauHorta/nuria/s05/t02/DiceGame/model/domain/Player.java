@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Date;
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.List;
 @Entity
 @Table(name = "players")
 public class Player {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,15 +34,15 @@ public class Player {
     @Column(name="creation_date", updatable = false)
     private Date creationDate;
 
-   // @ManyToOne(fetch = FetchType.LAZY)
-   // @JoinColumn(name = "user_id")
-   // private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+   private User user;
 
-    public Player(String playerName) {
+    public Player(String playerName, User user) {
         this.playerName = playerName;
         this.winRate = 0;
         this.creationDate = new Date();
-       // this.user = user;
+        this.user = user;
     }
 
 }

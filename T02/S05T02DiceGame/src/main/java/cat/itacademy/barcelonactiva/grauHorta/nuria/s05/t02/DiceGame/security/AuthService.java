@@ -6,9 +6,8 @@ import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.controller.
 
 public interface AuthService {
 
-    AuthResponse register (RegisterRequest request);
-
-    AuthResponse authenticate (AuthenticationRequest request);
+    AuthResponse register(RegisterRequest request);
+    AuthResponse authenticate(AuthenticationRequest request);
 
 
 }

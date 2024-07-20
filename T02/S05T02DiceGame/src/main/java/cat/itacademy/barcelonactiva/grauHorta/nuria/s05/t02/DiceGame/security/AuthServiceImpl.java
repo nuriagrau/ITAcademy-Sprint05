@@ -6,6 +6,7 @@ import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.controller.
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.domain.User;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,27 +17,46 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService{
 
+    @Autowired
     private final UserRepository userRepository;
-;
+    @Autowired
     private final PasswordEncoder passwordEncoder;
-
+    @Autowired
     private final JwtService jwtService;
-
+    @Autowired
     private final AuthenticationManager authenticationManager;
 
 
+
+    /*@PostConstruct
+    public void createAdminIfDoesNotExist() {
+        boolean adminExists = userRepository.findUserByEmail("admin@admin.com").isPresent();
+
+        if (!adminExists) {
+            User admin = User.builder()
+                    .userName("admin")
+                    .email("admin@admin.com")
+                    .password(passwordEncoder.encode("admin"))
+                    .registrationDate(new Date())
+                    .role(Role.ADMIN)
+                    .build();
+            userRepository.save(admin);
+        }
+    }*/
+
     @Override
     public AuthResponse register(RegisterRequest request) {
-        var user = User.builder()
+        User user = User.builder()
                 .userName(request.getUserName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole())
                 .build();
         userRepository.save(user);
-        var jwtToken = jwtService.generateToken(user);
+        String jwtToken = jwtService.generateToken(user);
         return AuthResponse.builder()
-                .token(jwtToken).build();
+                .token(jwtToken)
+                .build();
     }
 
     @Override
@@ -47,11 +67,14 @@ public class AuthServiceImpl implements AuthService{
                         request.getPassword()
                 )
         );
-        var user = userRepository.findUserByEmail(request.getEmail()).orElseThrow(
+        User user = userRepository.findUserByEmail(request.getEmail()).orElseThrow(
                 () -> new UsernameNotFoundException("User with email " + request.getEmail() + " not found.")
         );
-        var jwtToken = jwtService.generateToken(user);
+        String jwtToken = jwtService.generateToken(user);
 
-        return AuthResponse.builder().token(jwtToken).build();
+        return AuthResponse.builder()
+                .token(jwtToken)
+                .build();
     }
+
 }

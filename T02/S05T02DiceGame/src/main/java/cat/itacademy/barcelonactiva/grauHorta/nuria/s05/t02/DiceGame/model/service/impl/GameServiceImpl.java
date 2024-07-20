@@ -11,6 +11,7 @@ import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.repos
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.service.DiceGameService;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,6 +39,8 @@ public class GameServiceImpl implements GameService {
         this.diceGameService = diceGameService;
     }
 
+    @Override
+    @PreAuthorize("@SecurityService.isPlayerOwner(#playerId)")
     public GameDTO createGame(int playerId) {
         Player player = playerRepository.findById(playerId)
                 .orElseThrow(() -> new PlayerNotFoundException("There is no player with id : " + playerId));
@@ -80,6 +83,8 @@ public class GameServiceImpl implements GameService {
 
     }
 
+    @Override
+    @PreAuthorize("@SecurityService.isPlayerOwner(#playerId)")
     public Integer deleteAllGamesByPlayerId(int playerId) {
        playerRepository.findById(playerId)
                 .orElseThrow(() -> new PlayerNotFoundException("There is no player with id : " + playerId));
@@ -91,6 +96,7 @@ public class GameServiceImpl implements GameService {
     }
 
 
+    @Override
     public List<GameDTO> getAllGamesByPlayer(int playerId) {
         playerRepository.findById(playerId)
                 .orElseThrow(() -> new PlayerNotFoundException("There is no player with id : " + playerId));

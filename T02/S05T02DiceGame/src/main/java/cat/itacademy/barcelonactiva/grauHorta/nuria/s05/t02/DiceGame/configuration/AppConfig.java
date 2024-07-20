@@ -29,11 +29,16 @@ public class AppConfig {
         return new Random();
     }
 
-
     @Bean
     public UserDetailsService userDetailsService() {
 
-        return username -> userRepository.findUserByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return new UserDetailsService() {
+            @Override
+            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+                return userRepository.findUserByEmail(username)
+                        .orElseThrow(() -> new UsernameNotFoundException("User with email " + username + " not found"));
+            }
+        };
     }
 
     @Bean
@@ -51,10 +56,9 @@ public class AppConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
 
-        return config.getAuthenticationManager();
+        return authConfig.getAuthenticationManager();
     }
-
 
 }

@@ -12,9 +12,9 @@ CREATE SCHEMA IF NOT EXISTS `diceGamedb` DEFAULT CHARACTER SET utf8 ;
 USE `diceGamedb` ;
 
 -- -----------------------------------------------------
--- Table `diceGamedb`.`user`
+-- Table `diceGamedb`.`users`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `diceGamedb`.`user` (
+CREATE TABLE IF NOT EXISTS `diceGamedb`.`users` (
   `user_id` INT NOT NULL AUTO_INCREMENT,
   `user_name` VARCHAR(45) NOT NULL,
   `email` VARCHAR(100) NOT NULL,
@@ -26,9 +26,9 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
 -- -----------------------------------------------------
--- Table `diceGamedb`.`player`
+-- Table `diceGamedb`.`players`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `diceGamedb`.`player` (
+CREATE TABLE IF NOT EXISTS `diceGamedb`.`players` (
   `player_id` INT NOT NULL AUTO_INCREMENT,
   `player_name` VARCHAR(45) NOT NULL,
   `win_rate` INT DEFAULT NULL,

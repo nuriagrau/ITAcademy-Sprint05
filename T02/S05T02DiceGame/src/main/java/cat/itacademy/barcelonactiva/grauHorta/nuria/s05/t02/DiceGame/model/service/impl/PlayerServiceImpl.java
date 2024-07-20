@@ -10,6 +10,7 @@ import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.repos
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.repository.PlayerRepository;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.OptionalDouble;
@@ -47,6 +48,8 @@ public class PlayerServiceImpl implements PlayerService {
         return playerMapper.toDto(playerRepository.save(newPlayer));
     }
 
+    @Override
+    @PreAuthorize("@SecurityService.isPlayerOwner(#playerId)")
     public PlayerDTO updatePlayer(PlayerDTO playerDto) {
         Player existingPlayer = playerRepository.findById(playerDto.getPlayerId())
                 .orElseThrow(() -> new PlayerNotFoundException("Player with id: " + playerDto.getPlayerId() + " not found."));
@@ -57,12 +60,14 @@ public class PlayerServiceImpl implements PlayerService {
         return playerMapper.toDto(playerRepository.save(existingPlayer));
     }
 
+    @Override
     public List<PlayerDTO> getAllPlayersOrderByWinRateDesc() {
         List<Player> players = playerRepository.findByOrderByWinRateDesc();
 
         return playerMapper.toDTOList(players);
     }
 
+    @Override
     public Double getWinRateAverage() throws EmptyGamesListException{
         OptionalDouble winRateAverage = playerRepository.findAll().stream()
 
@@ -72,12 +77,14 @@ public class PlayerServiceImpl implements PlayerService {
         return winRateAverage.orElseThrow(() -> new EmptyGamesListException("No win rates available to calculate average"));
     }
 
+    @Override
     public PlayerDTO getLoser() {
         List<Player> players = playerRepository.findByOrderByWinRateDesc();
 
         return playerMapper.toDto(players.getLast());
     }
 
+    @Override
     public PlayerDTO getWinner(){
         List<Player> players = playerRepository.findByOrderByWinRateDesc();
 
@@ -85,6 +92,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
+    @PreAuthorize("@SecurityService.isPlayerOwner(#playerId)")
     public Integer deletePlayer(int playerId) {
         Player existingPlayer = playerRepository.findById(playerId)
                 .orElseThrow(() -> new PlayerNotFoundException("Player with id " + playerId + " not found"));
