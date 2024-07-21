@@ -40,12 +40,10 @@ public class PlayerController {
 
     @Operation(summary="Delete Player with id")
     @DeleteMapping(path="/delete/{id}")
-    public ResponseEntity<Integer> deletePlayer(@PathVariable int  id) {
+    public ResponseEntity<Integer> deletePlayer(@PathVariable int id) {
 
         return new ResponseEntity<>(playerService.deletePlayer(id), HttpStatus.OK);
     }
-
-
 
 
     @Operation(summary = "Get All Players")

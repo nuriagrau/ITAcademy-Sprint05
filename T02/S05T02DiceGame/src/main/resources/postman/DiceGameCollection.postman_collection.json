@@ -2,229 +2,235 @@
 	"info": {
 		"_postman_id": "363e195b-60d8-4465-ae72-a7133e3213ac",
 		"name": "DiceGameCollection",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "36480405"
 	},
 	"item": [
 		{
-			"name": "AddNewPlayer",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"playerName\": \"stitch\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/players",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"players"
-					],
-					"query": [
+			"name": "Authorized",
+			"item": [
+				{
+					"name": "Games",
+					"item": [
 						{
-							"key": "playerName",
-							"value": "eric",
-							"disabled": true
+							"name": "AddNewGameByPlayerId",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": "http://localhost:8082/players/{{playerId}}/games/"
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteAllGamesByPlayerId",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:8080/players/{{playerId}}/games"
+							},
+							"response": []
 						}
 					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "UpdatePlayer",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    {\n        \"playerId\": 3,\n        \"playerName\": \"{{playerName}}\"\n    }\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
 				},
-				"url": {
-					"raw": "http://localhost:8080/players",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"players"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetAllPlayers",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/players/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"players",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetAllRankingAverage",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"playerName\": \"{{playerName}}\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Players",
+					"item": [
+						{
+							"name": "AddNewPlayer",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"playerName\": \"stitch\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/players",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"players"
+									],
+									"query": [
+										{
+											"key": "playerName",
+											"value": "eric",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdatePlayer",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    {\n        \"playerId\": 3,\n        \"playerName\": \"{{playerName}}\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/players"
+							},
+							"response": []
+						},
+						{
+							"name": "DeletePlayerById",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8082/player/{{id}}/delete"
+							},
+							"response": []
 						}
-					}
+					]
+				}
+			]
+		},
+		{
+			"name": "Unauthorized",
+			"item": [
+				{
+					"name": "Players",
+					"item": [
+						{
+							"name": "GetAllPlayers",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8082/players/"
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllRankingAverage",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"playerName\": \"{{playerName}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8082/players/ranking"
+							},
+							"response": []
+						},
+						{
+							"name": "GetWinnerPlayer",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8082/players/ranking/winner"
+							},
+							"response": []
+						},
+						{
+							"name": "GetLoserPlayer",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8082/players/ranking/loser"
+							},
+							"response": []
+						}
+					]
 				},
-				"url": {
-					"raw": "http://localhost:8080/players/ranking",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"players",
-						"ranking"
+				{
+					"name": "Games",
+					"item": [
+						{
+							"name": "GetAllGamesByPlayerId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8082/players/{{id}}/games"
+							},
+							"response": []
+						}
 					]
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "GetWinnerPlayer",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/players/ranking",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"players",
-						"ranking"
-					]
+			"name": "Register/Login",
+			"item": [
+				{
+					"name": "Register a new user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJudXJAbnVyLmNvbSIsImlhdCI6MTcyMTU4MDAwMSwiZXhwIjoxNzIxNjY2NDAxfQ.gnPHn472cAY9qX27HL5aXjyTYei_sbnht1-bMMuWW1Y"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userName\": \"nur\",\n    \"email\": \"nur@nur.com\",\n    \"password\": \"1234\",\n    \"role\": \"USER\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8082/diceGame/auth/register"
+					},
+					"response": []
+				},
+				{
+					"name": "LogIn",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"eriki@eriki.com\",\n    \"password\": \"2018\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8082/diceGame/auth/logIn"
+					},
+					"response": []
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetLoserPlayer",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/players/ranking/loser",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"players",
-						"ranking",
-						"loser"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "AddNewGameByPlayerId",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/players/{{playerId}}/games/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"players",
-						"{{playerId}}",
-						"games",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "DeleteAllGamesByPlayerId",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/players/{{playerId}}/games",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"players",
-						"{{playerId}}",
-						"games"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetAllGamesByPlayerId",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/players/{{id}}/games",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"players",
-						"{{id}}",
-						"games"
-					]
-				}
-			},
-			"response": []
+			]
 		}
 	],
 	"event": [

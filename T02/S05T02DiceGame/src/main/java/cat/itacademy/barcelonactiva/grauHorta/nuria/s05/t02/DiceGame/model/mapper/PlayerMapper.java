@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -32,9 +31,9 @@ public class PlayerMapper {
 
         Date creationDate = player.getCreationDate();
 
-        //int userId = player.getUser().getUserId();
+        int userId = player.getUser().getUserId();
 
-        return new PlayerDTO(playerId, playerName, winRate, creationDate);
+        return new PlayerDTO(playerId, playerName, winRate, creationDate, userId);
     }
 
     public Player toEntity(PlayerDTO playerDto) {

@@ -1,35 +1,45 @@
 package cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.service.impl;
 
-import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.exceptions.NotPlayerOwerException;
-import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.domain.Player;
-import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.dto.PlayerDTO;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.exceptions.EmptyGamesListException;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.exceptions.PlayerAlreadyExistsException;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.exceptions.PlayerNotFoundException;
+import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.domain.Player;
+import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.domain.User;
+import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.dto.PlayerDTO;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.mapper.PlayerMapper;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.repository.GameRepository;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.repository.PlayerRepository;
+import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.repository.UserRepository;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.service.PlayerService;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.security.service.impl.SecurityService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.OptionalDouble;
 
-import static org.springframework.security.core.context.SecurityContextHolder.*;
-
-
 @Service
-@RequiredArgsConstructor
 public class PlayerServiceImpl implements PlayerService {
 
     private final PlayerRepository playerRepository;
+
     private final PlayerMapper playerMapper;
+
     private final GameRepository gameRepository;
+
+    private final UserRepository userRepository;
+
     private final SecurityService securityService;
 
+    @Autowired
+    public PlayerServiceImpl(PlayerRepository playerRepository, PlayerMapper playerMapper, GameRepository gameRepository, UserRepository userRepository, SecurityService securityService) {
+        this.playerRepository = playerRepository;
+        this.playerMapper = playerMapper;
+        this.gameRepository = gameRepository;
+        this.userRepository = userRepository;
+        this.securityService = securityService;
+    }
 
     @Override
     public PlayerDTO createPlayer(PlayerDTO playerDto) {
@@ -92,12 +102,18 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     @PreAuthorize("@securityService.isPlayerOwner(#playerId) || hasRole('ADMIN')")
-    public Integer deletePlayer(int playerId) {
-            Player existingPlayer = playerRepository.findById(playerId)
-                    .orElseThrow(() -> new PlayerNotFoundException("Player with id " + playerId + " not found"));
+    public int deletePlayer(int playerId) {
+        Player existingPlayer = playerRepository.findById(playerId)
+                .orElseThrow(() -> new PlayerNotFoundException("Player with id " + playerId + " not found"));
 
-            gameRepository.deleteAllByPlayerId(playerId);
-            playerRepository.delete(existingPlayer);
-            return playerId;
+        User user = existingPlayer.getUser();
+        if (user != null) {
+            user.getPlayers().remove(existingPlayer);
+            userRepository.save(user);
+        }
+        gameRepository.deleteAllByPlayerId(playerId);
+        playerRepository.delete(existingPlayer);
+
+        return playerId;
     }
 }

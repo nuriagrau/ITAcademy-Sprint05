@@ -97,6 +97,7 @@ public class GameServiceImpl implements GameService {
        gameRepository.findByPlayerId(playerId).stream()
                .forEach(game -> gameRepository.deleteAllByPlayerId(playerId));
 
+       calculateNewWinRateByPlayer(playerId, false);
        return playerId;
     }
 
