@@ -1,4 +1,4 @@
-package cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.controller.models;
+package cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.security.dto.response;
 
 
 import lombok.AllArgsConstructor;

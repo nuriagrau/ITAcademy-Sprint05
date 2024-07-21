@@ -1,4 +1,4 @@
-package cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.security;
+package cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;

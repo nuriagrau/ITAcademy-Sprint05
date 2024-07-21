@@ -1,7 +1,9 @@
 package cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.configuration
         ;
 
+import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.repository.PlayerRepository;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.repository.UserRepository;
+import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.security.service.impl.SecurityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +24,7 @@ import java.util.Random;
 public class AppConfig {
 
     private final UserRepository userRepository;
+    private final PlayerRepository playerRepository;
 
     @Bean
     public Random random() {
@@ -60,5 +63,13 @@ public class AppConfig {
 
         return authConfig.getAuthenticationManager();
     }
+
+
+    @Bean
+    public SecurityService securityService() {
+
+        return new SecurityService();
+        }
+
 
 }

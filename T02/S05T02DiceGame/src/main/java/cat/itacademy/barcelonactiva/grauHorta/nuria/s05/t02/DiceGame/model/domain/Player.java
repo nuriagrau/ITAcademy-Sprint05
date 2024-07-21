@@ -34,7 +34,7 @@ public class Player {
     @Column(name="creation_date", updatable = false)
     private Date creationDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
    private User user;
 

@@ -1,4 +1,4 @@
-package cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.controller.models;
+package cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.security.dto.request;
 
 
 import lombok.AllArgsConstructor;
@@ -16,6 +16,6 @@ public class AuthenticationRequest {
     @NotBlank
     private String email;
 
-    @jakarta.validation.constraints.NotBlank
+    @NotBlank
     private String password;
 }

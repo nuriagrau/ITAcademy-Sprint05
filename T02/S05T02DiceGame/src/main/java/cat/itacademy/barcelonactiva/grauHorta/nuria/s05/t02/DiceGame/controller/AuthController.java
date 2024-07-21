@@ -1,15 +1,13 @@
 package cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.controller;
 
-import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.controller.models.AuthResponse;
-import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.controller.models.AuthenticationRequest;
-import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.controller.models.RegisterRequest;
+import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.security.dto.response.AuthResponse;
+import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.security.dto.request.AuthenticationRequest;
+import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.security.dto.request.RegisterRequest;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.domain.User;
-import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.dto.PlayerDTO;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.service.UserService;
-import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.security.AuthService;
+import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.security.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

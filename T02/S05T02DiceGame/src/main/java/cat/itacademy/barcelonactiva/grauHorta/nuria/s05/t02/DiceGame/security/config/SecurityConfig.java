@@ -1,6 +1,6 @@
-package cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.configuration;
+package cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.security.config;
 
-import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.security.JwtFilter;
+import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.security.jwt.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

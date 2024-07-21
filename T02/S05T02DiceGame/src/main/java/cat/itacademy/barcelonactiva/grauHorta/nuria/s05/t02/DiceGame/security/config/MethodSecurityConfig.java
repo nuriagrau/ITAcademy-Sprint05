@@ -1,4 +1,4 @@
-package cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.configuration;
+package cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.security.config;
 
 
 import org.springframework.context.annotation.Configuration;

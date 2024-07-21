@@ -1,5 +1,6 @@
 package cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.service.impl;
 
+import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.exceptions.NotPlayerOwerException;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.domain.Player;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.dto.PlayerDTO;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.exceptions.EmptyGamesListException;
@@ -9,28 +10,23 @@ import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.mappe
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.repository.GameRepository;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.repository.PlayerRepository;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.service.PlayerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.OptionalDouble;
 
+import static org.springframework.security.core.context.SecurityContextHolder.*;
 
 
 @Service
+@RequiredArgsConstructor
 public class PlayerServiceImpl implements PlayerService {
 
     private final PlayerRepository playerRepository;
     private final PlayerMapper playerMapper;
     private final GameRepository gameRepository;
-
-
-    @Autowired
-    public PlayerServiceImpl(PlayerRepository playerRepository, PlayerMapper playerMapper, GameRepository gameRepository) {
-        this.playerRepository = playerRepository;
-        this.playerMapper = playerMapper;
-        this.gameRepository = gameRepository;
-    }
 
 
     @Override
@@ -49,7 +45,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    @PreAuthorize("@SecurityService.isPlayerOwner(#playerId)")
+    @PreAuthorize("@securityService.isPlayerOwner(#playerId) || hasRole('ADMIN')")
     public PlayerDTO updatePlayer(PlayerDTO playerDto) {
         Player existingPlayer = playerRepository.findById(playerDto.getPlayerId())
                 .orElseThrow(() -> new PlayerNotFoundException("Player with id: " + playerDto.getPlayerId() + " not found."));
@@ -91,14 +87,15 @@ public class PlayerServiceImpl implements PlayerService {
         return playerMapper.toDto(players.getFirst());
     }
 
-    @Override
-    @PreAuthorize("@SecurityService.isPlayerOwner(#playerId)")
-    public Integer deletePlayer(int playerId) {
-        Player existingPlayer = playerRepository.findById(playerId)
-                .orElseThrow(() -> new PlayerNotFoundException("Player with id " + playerId + " not found"));
 
-        gameRepository.deleteAllByPlayerId(playerId);
-        playerRepository.delete(existingPlayer);
-        return playerId;
+    @Override
+    @PreAuthorize("@securityService.isPlayerOwner(#playerId) || hasRole('ADMIN')")
+    public Integer deletePlayer(int playerId) {
+            Player existingPlayer = playerRepository.findById(playerId)
+                    .orElseThrow(() -> new PlayerNotFoundException("Player with id " + playerId + " not found"));
+
+            gameRepository.deleteAllByPlayerId(playerId);
+            playerRepository.delete(existingPlayer);
+            return playerId;
     }
 }

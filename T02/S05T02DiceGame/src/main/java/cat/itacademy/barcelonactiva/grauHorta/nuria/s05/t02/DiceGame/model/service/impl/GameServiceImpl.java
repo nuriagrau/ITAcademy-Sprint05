@@ -10,6 +10,7 @@ import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.repos
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.repository.PlayerRepository;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.service.DiceGameService;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.service.GameService;
+import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.security.service.impl.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -30,17 +31,20 @@ public class GameServiceImpl implements GameService {
 
     private final DiceGameService diceGameService;
 
+    private final SecurityService securityService;
+
 
     @Autowired
-    public GameServiceImpl(GameRepository gameRepository, PlayerRepository playerRepository, GameMapper gameMapper, DiceGameService diceGameService) {
+    public GameServiceImpl(GameRepository gameRepository, PlayerRepository playerRepository, GameMapper gameMapper, DiceGameService diceGameService, SecurityService securityService) {
         this.gameRepository = gameRepository;
         this.playerRepository = playerRepository;
         this.gameMapper = gameMapper;
         this.diceGameService = diceGameService;
+        this.securityService = securityService;
     }
 
     @Override
-    @PreAuthorize("@SecurityService.isPlayerOwner(#playerId)")
+    @PreAuthorize("@securityService.isPlayerOwner(#playerId) || hasRole('ADMIN')")
     public GameDTO createGame(int playerId) {
         Player player = playerRepository.findById(playerId)
                 .orElseThrow(() -> new PlayerNotFoundException("There is no player with id : " + playerId));
@@ -84,8 +88,9 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    @PreAuthorize("@SecurityService.isPlayerOwner(#playerId)")
+    @PreAuthorize("@securityService.isPlayerOwner(#playerId) || hasRole('ADMIN')")
     public Integer deleteAllGamesByPlayerId(int playerId) {
+
        playerRepository.findById(playerId)
                 .orElseThrow(() -> new PlayerNotFoundException("There is no player with id : " + playerId));
 
@@ -106,5 +111,6 @@ public class GameServiceImpl implements GameService {
 
          return gameMapper.toDTOList(games);
     }
+
 
 }
