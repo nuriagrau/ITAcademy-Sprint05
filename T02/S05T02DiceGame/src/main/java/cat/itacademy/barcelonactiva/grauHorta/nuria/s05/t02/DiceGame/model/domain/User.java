@@ -48,7 +48,7 @@ public class User implements UserDetails {
     private String password;
 
     @Column(name="registration_date", updatable = false)
-    //@Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date registrationDate;
 
     @Column(name = "role", nullable = false)
@@ -60,14 +60,14 @@ public class User implements UserDetails {
     private List<Player> players;
 
 
-    public User(String userName, String email, String password, String role) {
+    /*public User(String userName, String email, String password, String role) {
         this.userName = userName;
         this.email = email;
         this.password = password;
         this.registrationDate = new Date();
         this.role = Role.valueOf(role);
         this.players = new ArrayList<>();
-    }
+    }*/
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

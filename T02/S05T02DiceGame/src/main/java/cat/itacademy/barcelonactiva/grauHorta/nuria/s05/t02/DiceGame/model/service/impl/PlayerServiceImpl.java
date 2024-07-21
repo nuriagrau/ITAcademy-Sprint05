@@ -10,6 +10,7 @@ import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.mappe
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.repository.GameRepository;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.repository.PlayerRepository;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.service.PlayerService;
+import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.security.service.impl.SecurityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,6 +28,7 @@ public class PlayerServiceImpl implements PlayerService {
     private final PlayerRepository playerRepository;
     private final PlayerMapper playerMapper;
     private final GameRepository gameRepository;
+    private final SecurityService securityService;
 
 
     @Override
@@ -45,7 +47,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    @PreAuthorize("@securityService.isPlayerOwner(#playerId) || hasRole('ADMIN')")
+    @PreAuthorize("@securityService.isPlayerOwner(#playerDto.getPlayerId()) || hasRole('ADMIN')")
     public PlayerDTO updatePlayer(PlayerDTO playerDto) {
         Player existingPlayer = playerRepository.findById(playerDto.getPlayerId())
                 .orElseThrow(() -> new PlayerNotFoundException("Player with id: " + playerDto.getPlayerId() + " not found."));

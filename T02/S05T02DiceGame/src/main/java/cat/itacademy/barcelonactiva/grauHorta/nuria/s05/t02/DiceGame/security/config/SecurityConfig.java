@@ -50,9 +50,9 @@ public class SecurityConfig {
 
     private RequestMatcher publicEndpoints(){
         return new OrRequestMatcher(
-                new AntPathRequestMatcher("/players**"),
-                new AntPathRequestMatcher("/players/**"),
-                new AntPathRequestMatcher("/auth/**"),
+                new AntPathRequestMatcher("/players**", HttpMethod.GET.toString()),
+                new AntPathRequestMatcher("/players/**", HttpMethod.GET.toString()),
+                new AntPathRequestMatcher("/diceGame/auth/**"),
                 new AntPathRequestMatcher("/swagger"),
                 new AntPathRequestMatcher("/swagger/**"),
                 new AntPathRequestMatcher("/swagger-ui/**"),
@@ -67,9 +67,10 @@ public class SecurityConfig {
 
     private RequestMatcher userEndpoints(){
         return new OrRequestMatcher(
-                new AntPathRequestMatcher("/players/"),
+                new AntPathRequestMatcher("/players"),
                 new AntPathRequestMatcher("/players/**", HttpMethod.GET.toString()),
-                new AntPathRequestMatcher("/players/**", HttpMethod.POST.toString())
+                new AntPathRequestMatcher("/players/**", HttpMethod.POST.toString()),
+                new AntPathRequestMatcher("/players/**", HttpMethod.DELETE.toString())
         );
     }
 
