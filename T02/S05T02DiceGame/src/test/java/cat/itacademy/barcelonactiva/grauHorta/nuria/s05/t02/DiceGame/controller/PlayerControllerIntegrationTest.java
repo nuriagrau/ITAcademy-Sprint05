@@ -2,6 +2,7 @@ package cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.controller
 
 
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.domain.Player;
+import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.dto.PlayerDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,8 +41,9 @@ public class PlayerControllerIntegrationTest {
 
     @DisplayName("PlayerControllerIntegrationTest - Test for insert new player")
     @Test
+    @WithMockUser(roles = "ADMIN")
     void whenCreatePlayer_thenReturnStatusCreatedAndPlayer() throws Exception {
-        Player newPlayer = Player.builder().playerName("newPlayer").build();
+        PlayerDTO newPlayer = new PlayerDTO("newPlayer");
         mvc.perform(post("/players")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(newPlayer))
@@ -49,8 +51,8 @@ public class PlayerControllerIntegrationTest {
                 .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").isNotEmpty())
-                .andExpect(jsonPath("$.name").value("newPlayer"));
+                .andExpect(jsonPath("$.playerId").isNotEmpty())
+                .andExpect(jsonPath("$.playerName").value("newPlayer"));
     }
 
     @DisplayName("PlayerControllerIntegrationTest - Test for insert new player return PlayerAlreadyExistsException")

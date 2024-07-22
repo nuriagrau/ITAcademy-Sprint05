@@ -1,12 +1,10 @@
 package cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.dto;
 
 
-import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bson.types.ObjectId;
 
 import java.util.Date;
 
@@ -30,7 +28,6 @@ public class GameDTO {
 
     private Date timestamp;
 
-
     public GameDTO(String id, int dice1, int dice2, boolean wins, int playerId, double winRate) {
         this.id = id;
         this.dice1 = dice1;
@@ -38,5 +35,9 @@ public class GameDTO {
         this.wins = wins;
         this.playerId = playerId;
         this.winRate = winRate;
+    }
+
+    public String getId() {
+        return id;
     }
 }
