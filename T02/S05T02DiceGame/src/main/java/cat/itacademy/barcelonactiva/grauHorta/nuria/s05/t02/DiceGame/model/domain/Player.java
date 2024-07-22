@@ -41,7 +41,6 @@ public class Player {
         this.playerName = playerName;
         this.winRate = 0;
         this.creationDate = new Date();
-        this.user = user;
     }
     public Player(String playerName, User user) {
         this.playerName = playerName;

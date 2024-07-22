@@ -25,17 +25,22 @@ public class PlayerDTO {
     private int userId;
 
 
-    public PlayerDTO(String playerName) {
+    // For testing purposes only
+    public PlayerDTO(int playerId, String playerName, double winRate) {
+        this.playerId = playerId;
         this.playerName = playerName;
+        this.winRate = winRate;
     }
 
-    // For testing purposes only
-    public PlayerDTO(int playerId, String playerName) {
-        this.playerId = playerId;
+    public PlayerDTO(String playerName) {
         this.playerName = playerName;
     }
 
     public PlayerDTO() {
         this.playerName = "ANONYM";
+    }
+
+    public void setPlayerId(int playerId) {
+        this.playerId = playerId;
     }
 }
