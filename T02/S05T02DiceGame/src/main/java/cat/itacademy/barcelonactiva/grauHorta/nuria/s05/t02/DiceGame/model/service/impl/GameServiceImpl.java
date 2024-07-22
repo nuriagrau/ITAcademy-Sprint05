@@ -1,10 +1,10 @@
 package cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.service.impl;
 
+import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.exceptions.EmptyGamesListException;
+import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.exceptions.PlayerNotFoundException;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.domain.Game;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.domain.Player;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.dto.GameDTO;
-import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.exceptions.EmptyGamesListException;
-import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.exceptions.PlayerNotFoundException;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.mapper.GameMapper;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.repository.GameRepository;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.repository.PlayerRepository;
@@ -16,8 +16,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-import static java.lang.Math.round;
 
 @Service
 public class GameServiceImpl implements GameService {
@@ -83,21 +81,22 @@ public class GameServiceImpl implements GameService {
                 .filter(g -> g.isWins() == true)
                 .count();
 
-        return countOfPlayerWins * 100 / countOfPlayerGames;
-
+        return (countOfPlayerGames != 0) ? countOfPlayerWins * 100 / countOfPlayerGames: 0;
     }
 
     @Override
     @PreAuthorize("@securityService.isPlayerOwner(#playerId) || hasRole('ADMIN')")
     public Integer deleteAllGamesByPlayerId(int playerId) {
 
-       playerRepository.findById(playerId)
+       Player existingPlayer = playerRepository.findById(playerId)
                 .orElseThrow(() -> new PlayerNotFoundException("There is no player with id : " + playerId));
 
        gameRepository.findByPlayerId(playerId).stream()
                .forEach(game -> gameRepository.deleteAllByPlayerId(playerId));
 
-       calculateNewWinRateByPlayer(playerId, false);
+       existingPlayer.setWinRate(calculateNewWinRateByPlayer(playerId, false));
+       playerRepository.save(existingPlayer);
+
        return playerId;
     }
 

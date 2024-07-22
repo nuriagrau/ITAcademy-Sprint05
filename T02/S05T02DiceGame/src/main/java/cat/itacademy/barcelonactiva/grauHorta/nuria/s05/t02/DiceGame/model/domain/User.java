@@ -4,12 +4,7 @@ import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.enums
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +13,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -34,17 +31,16 @@ public class User implements UserDetails {
     private int userId;
 
     @Column(name = "user_name", nullable = false)
-    //@NotEmpty(message = "User name may not be empty")
     private String userName;
 
     @Column
     @Email(regexp = ".+@.+\\..+", message = "User email must contain @ and .something")
-    //@NotEmpty(message = "User email may not be empty")
+    @NotEmpty(message = "User email may not be empty")
     private String email;
 
     @Column(name = "password", nullable = false)
     @Length(min = 4,  message = "User password must be 4 characters minimum lenght.")
-    //@NotEmpty(message = "User password may not be empty.")
+    @NotEmpty(message = "User password may not be empty.")
     private String password;
 
     @Column(name="registration_date", updatable = false)
@@ -59,15 +55,6 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Player> players;
 
-
-    /*public User(String userName, String email, String password, String role) {
-        this.userName = userName;
-        this.email = email;
-        this.password = password;
-        this.registrationDate = new Date();
-        this.role = Role.valueOf(role);
-        this.players = new ArrayList<>();
-    }*/
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

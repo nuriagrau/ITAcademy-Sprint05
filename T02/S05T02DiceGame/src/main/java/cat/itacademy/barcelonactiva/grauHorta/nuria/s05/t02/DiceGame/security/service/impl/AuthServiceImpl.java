@@ -1,5 +1,6 @@
 package cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.security.service.impl;
 
+import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.exceptions.UserAlreadyExistsException;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.enums.Role;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.security.dto.response.AuthResponse;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.security.dto.request.AuthenticationRequest;
@@ -52,6 +53,14 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthResponse register(RegisterRequest request) {
+        if (request.getPassword().isEmpty()) {
+            throw new IllegalArgumentException("Password cannot be null.");
+        }
+        userRepository.findUserByEmail(request.getEmail())
+                .ifPresent(user -> {
+                    throw new UserAlreadyExistsException("User with email " + user.getEmail() + " already exists.");
+                });
+
         User user = User.builder()
                 .userName(request.getUserName())
                 .email(request.getEmail())
