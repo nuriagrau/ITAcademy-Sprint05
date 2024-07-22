@@ -29,6 +29,12 @@ public class PlayerDTO {
         this.playerName = playerName;
     }
 
+    // For testing purposes only
+    public PlayerDTO(int playerId, String playerName) {
+        this.playerId = playerId;
+        this.playerName = playerName;
+    }
+
     public PlayerDTO() {
         this.playerName = "ANONYM";
     }

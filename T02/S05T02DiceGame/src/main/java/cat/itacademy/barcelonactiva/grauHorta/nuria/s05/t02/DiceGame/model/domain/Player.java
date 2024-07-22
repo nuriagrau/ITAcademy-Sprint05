@@ -34,13 +34,20 @@ public class Player {
     @JoinColumn(name = "user_id")
     private User user;
 
+
+    // for testing purposes only
+    public Player(int playerId, String playerName) {
+        this.playerId = playerId;
+        this.playerName = playerName;
+        this.winRate = 0;
+        this.creationDate = new Date();
+        this.user = user;
+    }
     public Player(String playerName, User user) {
         this.playerName = playerName;
         this.winRate = 0;
         this.creationDate = new Date();
         this.user = user;
     }
-
-
 
 }
