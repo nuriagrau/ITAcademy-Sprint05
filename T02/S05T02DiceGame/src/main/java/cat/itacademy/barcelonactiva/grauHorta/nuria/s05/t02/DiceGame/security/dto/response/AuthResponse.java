@@ -13,4 +13,10 @@ import lombok.NoArgsConstructor;
 public class AuthResponse {
 
     private String token;
+
+
+    // for testing
+    public void setToken(String token) {
+        this.token = token;
+    }
 }

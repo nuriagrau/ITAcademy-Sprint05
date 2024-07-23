@@ -86,7 +86,7 @@ public class GameControllerUnitTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     void should_add_new_game_to_a_player() throws Exception {
-        when(gameService.createGame(any(int.class))).thenReturn(game1);
+        when(gameService.createGame(any(int.class))).thenReturn(game1, game3);
         mockMvc.perform(MockMvcRequestBuilders.post("/players/1000/games/")
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                         .contentType(MediaType.APPLICATION_JSON)
@@ -98,7 +98,20 @@ public class GameControllerUnitTest {
                 .andExpect(jsonPath("$.id", is(game1.getId())))
                 .andExpect(jsonPath("$.playerId", is(game1.getPlayerId())))
                 .andExpect((jsonPath("$").isNotEmpty()));
+        mockMvc.perform(MockMvcRequestBuilders.post("/players/1000/games/")
+                        .with(SecurityMockMvcRequestPostProcessors.csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(game1))
+                )
+                .andDo(print())
+                .andExpect(status().isCreated())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id", is(game3.getId())))
+                .andExpect(jsonPath("$.playerId", is(game3.getPlayerId())))
+                .andExpect((jsonPath("$").isNotEmpty()));
     }
+
+
 
 
     @DisplayName("PlayerControllerTest - Test for delete all games of a player")

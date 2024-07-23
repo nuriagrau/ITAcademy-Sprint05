@@ -51,7 +51,7 @@ public class GameServiceImpl implements GameService {
         int newGameDice2 = diceGameService.rollDice();
         boolean newGameWins = diceGameService.gameWins(newGameDice1, newGameDice2);
         double newWinRate;
-        if (gameRepository.findAll().stream().filter(g -> g.getPlayerId() == playerId).count() == 0) {
+        if (gameRepository.findByPlayerId(playerId).stream().count() == 0) {
             newWinRate = (newGameWins)? 1/1 * 100 : 0/1 * 100;
 
         } else {
@@ -81,7 +81,7 @@ public class GameServiceImpl implements GameService {
                 .filter(g -> g.isWins() == true)
                 .count();
 
-        return (countOfPlayerGames != 0) ? countOfPlayerWins * 100 / countOfPlayerGames: 0;
+        return (countOfPlayerGames != 0) ? countOfPlayerWins * 100 / countOfPlayerGames: 0.0;
     }
 
     @Override
