@@ -15,6 +15,7 @@ public class OpenApiConfig {
 
     @Bean
     public OpenAPI openApi() {
+
         return new OpenAPI()
                 .addSecurityItem(new SecurityRequirement().addList("Bearer Authentication"))
                 .components(new Components().addSecuritySchemes("Bearer Authentication", createAPIKeyScheme()))
@@ -27,6 +28,7 @@ public class OpenApiConfig {
     }
 
     private SecurityScheme createAPIKeyScheme() {
+
         return new SecurityScheme().type(SecurityScheme.Type.HTTP)
                 .bearerFormat("JWT")
                 .scheme("bearer");

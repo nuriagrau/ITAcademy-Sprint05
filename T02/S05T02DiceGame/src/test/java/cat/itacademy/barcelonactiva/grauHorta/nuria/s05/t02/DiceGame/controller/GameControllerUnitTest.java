@@ -1,6 +1,5 @@
 package cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.controller;
 
-
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.dto.GameDTO;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.dto.PlayerDTO;
 import cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.mapper.GameMapper;
@@ -114,7 +113,7 @@ public class GameControllerUnitTest {
 
 
 
-    @DisplayName("PlayerControllerTest - Test for delete all games of a player")
+    @DisplayName("GameControllerTest - Test for delete all games of a player")
     @Test
     @WithMockUser(roles = "ADMIN")
     void should_remove_all_games_of_a_player() throws Exception {
@@ -125,7 +124,7 @@ public class GameControllerUnitTest {
     }
 
 
-    @DisplayName("PlayerControllerTest - Test return games list of a player")
+    @DisplayName("GameControllerTest - Test return games list of a player")
     @Test
     @WithMockUser(roles = "")
     void should_return_games_list_of_a_player() throws Exception {

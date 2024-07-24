@@ -5,10 +5,16 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
 -- Schema diceGamedb
 -- -----------------------------------------------------
 
-CREATE SCHEMA IF NOT EXISTS `diceGamedb` DEFAULT CHARACTER SET utf8 ;
+-- -----------------------------------------------------
+-- Schema diceGamedb
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `diceGamedb` DEFAULT CHARACTER SET utf8mb3 ;
 USE `diceGamedb` ;
 
 -- -----------------------------------------------------
@@ -16,56 +22,52 @@ USE `diceGamedb` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `diceGamedb`.`users` (
   `user_id` INT NOT NULL AUTO_INCREMENT,
-  `user_name` VARCHAR(45) NOT NULL,
-  `email` VARCHAR(100) NOT NULL,
-  `registration_date` DATE NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
-  `role` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `registration_date` DATETIME(6) NULL DEFAULT NULL,
+  `role` ENUM('ADMIN', 'NO_ROLE', 'USER') NOT NULL,
+  `user_name` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`user_id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 25
 DEFAULT CHARACTER SET = utf8mb3;
+
 
 -- -----------------------------------------------------
 -- Table `diceGamedb`.`players`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `diceGamedb`.`players` (
   `player_id` INT NOT NULL AUTO_INCREMENT,
-  `player_name` VARCHAR(45) NOT NULL,
-  `win_rate` INT DEFAULT NULL,
-  `creation_date` DATE NOT NULL,
-  `user_id` INT NOT NULL,
+  `creation_date` DATETIME(6) NULL DEFAULT NULL,
+  `player_name` VARCHAR(255) NULL DEFAULT NULL,
+  `win_rate` DOUBLE NULL DEFAULT NULL,
+  `user_id` INT NULL DEFAULT NULL,
   PRIMARY KEY (`player_id`),
-  INDEX `user_id` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `user_id`
+  INDEX `FK3rfv9832bif6rea5edetib8it` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `FK3rfv9832bif6rea5edetib8it`
     FOREIGN KEY (`user_id`)
-    REFERENCES `diceGamedb`.`user` (`user_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
+    REFERENCES `diceGamedb`.`users` (`user_id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 55
 DEFAULT CHARACTER SET = utf8mb3;
 
+
 -- -----------------------------------------------------
--- Table `diceGamedb`.`ranking`
+-- Table `diceGamedb`.`users_players`
 -- -----------------------------------------------------
-CREATE TABLE `diceGamedb`.`ranking`
-SELECT win_rate, player_id, player_name, 
-DENSE_RANK () OVER (
-ORDER BY win_rate
-) AS Rank_no 
-FROM player;
-
-
-ALTER TABLE `diceGamedb`.`ranking` 
-ADD INDEX `name_player_idx`  (`player_name` ASC) VISIBLE,
-ADD INDEX `Rank_no_idx` (`Rank_no` ASC) VISIBLE;
-
-ALTER TABLE `diceGamedb`.`ranking` 
-ADD CONSTRAINT `player_id`
-  FOREIGN KEY (`player_id`)
-  REFERENCES `diceGamedb`.`player` (`player_id`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
-
+CREATE TABLE IF NOT EXISTS `diceGamedb`.`users_players` (
+  `user_user_id` INT NOT NULL,
+  `players_player_id` INT NOT NULL,
+  UNIQUE INDEX `UKlw7bh6f34qr2fucwobbegbck5` (`players_player_id` ASC) VISIBLE,
+  INDEX `FK842nuow3cwbsns8w0636lwugj` (`user_user_id` ASC) VISIBLE,
+  CONSTRAINT `FK842nuow3cwbsns8w0636lwugj`
+    FOREIGN KEY (`user_user_id`)
+    REFERENCES `diceGamedb`.`users` (`user_id`),
+  CONSTRAINT `FKq44jpc6e6ib7q05mo03udi3og`
+    FOREIGN KEY (`players_player_id`)
+    REFERENCES `diceGamedb`.`players` (`player_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

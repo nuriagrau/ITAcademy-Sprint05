@@ -75,7 +75,6 @@ public class PlayerServiceUnitTest {
         when(playerRepository.findById(1000)).thenReturn(java.util.Optional.of(player));
         when(playerRepository.save(any(Player.class))).thenReturn(player);
 
-
         player1.setPlayerName("updatedPlayer1");
         PlayerDTO updatedPlayer = playerService.updatePlayer(player1);
         assertEquals(updatedPlayer.getPlayerName(), "updatedPlayer1");

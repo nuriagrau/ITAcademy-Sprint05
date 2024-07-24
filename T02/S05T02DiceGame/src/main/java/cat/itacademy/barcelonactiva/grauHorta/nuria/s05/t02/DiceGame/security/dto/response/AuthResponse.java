@@ -15,7 +15,7 @@ public class AuthResponse {
     private String token;
 
 
-    // for testing
+    // for testing purposes only
     public void setToken(String token) {
         this.token = token;
     }

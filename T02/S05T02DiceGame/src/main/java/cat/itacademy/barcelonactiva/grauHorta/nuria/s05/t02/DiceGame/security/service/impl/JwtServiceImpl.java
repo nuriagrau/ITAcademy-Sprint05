@@ -19,7 +19,6 @@ import java.util.function.Function;
 @Service
 public class JwtServiceImpl implements JwtService {
 
-
     @Value(value = "${jwt.secret}")
     private String secretKey;
 
@@ -81,6 +80,5 @@ public class JwtServiceImpl implements JwtService {
 
         return extractClaim(token, Claims::getExpiration);
     }
-
 
 }

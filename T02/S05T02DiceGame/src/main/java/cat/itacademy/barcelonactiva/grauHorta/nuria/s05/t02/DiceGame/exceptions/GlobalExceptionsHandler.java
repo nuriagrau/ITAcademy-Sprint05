@@ -26,6 +26,7 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
                 new Date(),
                 "Internal Server Error",
                 webRequest.getDescription(false));
+
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -36,6 +37,7 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
                 new Date(),
                 ex.getMessage(),
                 webRequest.getDescription(false));
+
         return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }
 
@@ -46,6 +48,7 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
                 new Date(),
                 ex.getMessage(),
                 webRequest.getDescription(false));
+
         return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }
 
@@ -56,6 +59,7 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
                 new Date(),
                 ex.getMessage(),
                 webRequest.getDescription(false));
+
         return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }
 
@@ -66,6 +70,7 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
                 new Date(),
                 ex.getMessage(),
                 webRequest.getDescription(false));
+
         return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }
 
@@ -76,6 +81,7 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
                 new Date(),
                 ex.getMessage(),
                 webRequest.getDescription(false));
+
         return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }
 
@@ -86,6 +92,7 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
                 new Date(),
                 ex.getMessage(),
                 webRequest.getDescription(false));
+
         return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }
 

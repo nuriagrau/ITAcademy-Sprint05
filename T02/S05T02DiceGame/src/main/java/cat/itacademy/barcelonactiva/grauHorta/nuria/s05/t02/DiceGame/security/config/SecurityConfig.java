@@ -32,11 +32,6 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(publicEndpoints()).permitAll()
-                        /*
-                        .requestMatchers(userEndpoints()).hasAnyRole("USER", "ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/players/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/players/**").hasRole("ADMIN")
-                         */
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -45,7 +40,6 @@ public class SecurityConfig {
 
         return httpSecurity.build();
     }
-
 
 
     private RequestMatcher publicEndpoints(){
@@ -61,16 +55,6 @@ public class SecurityConfig {
                 new AntPathRequestMatcher("/swaggerDiceGame"),
                 new AntPathRequestMatcher("/v3/api-docs/**"),
                 new AntPathRequestMatcher("/error")
-        );
-    }
-
-
-    private RequestMatcher userEndpoints(){
-        return new OrRequestMatcher(
-                new AntPathRequestMatcher("/players"),
-                new AntPathRequestMatcher("/players/**", HttpMethod.GET.toString()),
-                new AntPathRequestMatcher("/players/**", HttpMethod.POST.toString()),
-                new AntPathRequestMatcher("/players/**", HttpMethod.DELETE.toString())
         );
     }
 

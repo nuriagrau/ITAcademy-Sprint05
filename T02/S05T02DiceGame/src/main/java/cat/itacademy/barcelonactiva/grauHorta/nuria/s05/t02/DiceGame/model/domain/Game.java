@@ -3,7 +3,6 @@ package cat.itacademy.barcelonactiva.grauHorta.nuria.s05.t02.DiceGame.model.doma
 
 import jakarta.persistence.Id;
 import lombok.*;
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
 

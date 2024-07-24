@@ -24,7 +24,6 @@ public class PlayerRepositoryUnitTest {
 
     @Autowired
     private PlayerRepository playerRepository;
-
     @Autowired
     private UserRepository userRepository;
 

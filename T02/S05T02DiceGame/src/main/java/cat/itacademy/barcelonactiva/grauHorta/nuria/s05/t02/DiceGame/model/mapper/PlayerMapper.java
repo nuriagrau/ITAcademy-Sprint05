@@ -37,8 +37,6 @@ public class PlayerMapper {
     }
 
     public Player toEntity(PlayerDTO playerDto) {
-        //String playerName = playerDto.getPlayerName();
-        //playerName = (playerName.equalsIgnoreCase("") ? playerDto.getPlayerName() : "ANONYM");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findUserByEmail(authentication.getName()).orElseThrow(() -> new UsernameNotFoundException("Current user cannot be found"));
 
@@ -46,11 +44,11 @@ public class PlayerMapper {
     }
 
 
-
     public List<PlayerDTO> toDTOList(List<Player> playersList) {
         List<PlayerDTO> playersDtoList = playersList.stream()
                 .map(player -> toDto(player))
                 .collect(Collectors.toList());
+
         return playersDtoList;
     }
 }

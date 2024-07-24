@@ -24,7 +24,6 @@ public class PlayerController {
 
     @Operation(summary = "Add new Player")
     @PostMapping(path="")
-    // POST: /players: crea un jugador/a.
     public ResponseEntity<PlayerDTO> createPlayer(@RequestBody PlayerDTO playerDto) {
 
         return new ResponseEntity<>(playerService.createPlayer(playerDto), HttpStatus.CREATED);
@@ -32,7 +31,6 @@ public class PlayerController {
 
     @Operation(summary = "Update one Player")
     @PutMapping(path="")
-    // PUT /players: modifica el nom del jugador/a.
     public ResponseEntity<PlayerDTO> updatePlayer(@RequestBody PlayerDTO playerDto) {
 
         return new ResponseEntity<>(playerService.updatePlayer(playerDto), HttpStatus.OK);
@@ -48,7 +46,6 @@ public class PlayerController {
 
     @Operation(summary = "Get All Players")
     @GetMapping(path="/")
-    // GET /players/: retorna el llistat de tots  els jugadors/es del sistema amb el seu  percentatge mitjà d’èxits.
     public ResponseEntity<List<PlayerDTO>> getAllPlayersOrderByWinRateDesc() {
 
         return new ResponseEntity<>(playerService.getAllPlayersOrderByWinRateDesc(), HttpStatus.OK);
@@ -56,7 +53,6 @@ public class PlayerController {
 
     @Operation(summary = "Get WinRate Average")
     @GetMapping(path="/ranking")
-    // GET /players/ranking: retorna el ranking mig de tots els jugadors/es del sistema. És a dir, el  percentatge mitjà d’èxits.
     public ResponseEntity<Double> getAllPlayersWinRateAverage() {
 
         return new ResponseEntity<>(playerService.getWinRateAverage(), HttpStatus.OK);
@@ -64,7 +60,6 @@ public class PlayerController {
 
     @Operation(summary = "Get Loser Player")
     @GetMapping(path="/ranking/loser")
-    // GET /players/ranking/loser: retorna el jugador/a  amb pitjor percentatge d’èxit.
     public ResponseEntity<PlayerDTO> getLoser() {
 
         return new ResponseEntity<>(playerService.getLoser(), HttpStatus.OK);
@@ -72,7 +67,6 @@ public class PlayerController {
 
     @Operation(summary = "Get Winner Player")
     @GetMapping(path="/ranking/winner")
-    // GET /players/ranking/winner: retorna el  jugador amb pitjor percentatge d’èxit.
     public ResponseEntity<PlayerDTO> getWinner() {
 
         return new ResponseEntity<>(playerService.getWinner(), HttpStatus.OK);

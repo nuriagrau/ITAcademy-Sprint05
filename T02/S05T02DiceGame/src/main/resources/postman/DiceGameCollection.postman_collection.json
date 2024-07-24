@@ -13,8 +13,14 @@
 					"name": "Games",
 					"item": [
 						{
-							"name": "AddNewGameByPlayerId",
+							"name": "OwnedNewGameByPlayerId",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlcmljQGVyaWMuY29tIiwiaWF0IjoxNzIxNTk5ODQ2LCJleHAiOjE3MjE2ODYyNDZ9.7pjstj40PqMKcvTiy5KDsbHyXm0w6DKiwSnvBWAHQlE"
+									}
+								},
 								"method": "POST",
 								"header": [],
 								"url": "http://localhost:8082/players/{{playerId}}/games/"
@@ -22,11 +28,71 @@
 							"response": []
 						},
 						{
-							"name": "DeleteAllGamesByPlayerId",
+							"name": "NewGameByPlayerId NonAuth",
 							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"url": "http://localhost:8082/players/{{playerId}}/games/"
+							},
+							"response": []
+						},
+						{
+							"name": "NotOwnedNewGameByPlayerId",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlcmljQGVyaWMuY29tIiwiaWF0IjoxNzIxNTk5ODQ2LCJleHAiOjE3MjE2ODYyNDZ9.7pjstj40PqMKcvTiy5KDsbHyXm0w6DKiwSnvBWAHQlE"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"url": "http://localhost:8082/players/{{playerId}}/games/"
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteOwnedAllGamesByPlayerId",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJudXJAbnVyLmNvbSIsImlhdCI6MTcyMTU4MDAwMSwiZXhwIjoxNzIxNjY2NDAxfQ.gnPHn472cAY9qX27HL5aXjyTYei_sbnht1-bMMuWW1Y"
+									}
+								},
 								"method": "DELETE",
 								"header": [],
-								"url": "http://localhost:8080/players/{{playerId}}/games"
+								"url": "http://localhost:8082/players/{{playerId}}/games"
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteAllGamesByPlayerId NonAuth",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:8082/players/{{playerId}}/games"
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteNotOwnedAllGamesByPlayerId",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJudXJAbnVyLmNvbSIsImlhdCI6MTcyMTU4MDAwMSwiZXhwIjoxNzIxNjY2NDAxfQ.gnPHn472cAY9qX27HL5aXjyTYei_sbnht1-bMMuWW1Y"
+									}
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:8082/players/{{playerId}}/games"
 							},
 							"response": []
 						}
@@ -36,61 +102,176 @@
 					"name": "Players",
 					"item": [
 						{
-							"name": "AddNewPlayer",
+							"name": "AddNewPlayer Auth",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlcmljQGVyaWMuY29tIiwiaWF0IjoxNzIxNTk5ODQ2LCJleHAiOjE3MjE2ODYyNDZ9.7pjstj40PqMKcvTiy5KDsbHyXm0w6DKiwSnvBWAHQlE"
+									}
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"playerName\": \"stitch\"\n}",
+									"raw": "{\n    \"playerName\": \"{{playerName}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
 										}
 									}
 								},
-								"url": {
-									"raw": "http://localhost:8080/players",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"players"
-									],
-									"query": [
-										{
-											"key": "playerName",
-											"value": "eric",
-											"disabled": true
-										}
-									]
-								}
+								"url": "http://localhost:8082/players"
 							},
 							"response": []
 						},
 						{
-							"name": "UpdatePlayer",
+							"name": "AddNewAnonymousPlayer Auth",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlcmljQGVyaWMuY29tIiwiaWF0IjoxNzIxNTk5ODQ2LCJleHAiOjE3MjE2ODYyNDZ9.7pjstj40PqMKcvTiy5KDsbHyXm0w6DKiwSnvBWAHQlE"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"playerName\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8082/players"
+							},
+							"response": []
+						},
+						{
+							"name": "AddNewPlayer NonAuth",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"playerName\": \"{{playerName}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8082/players"
+							},
+							"response": []
+						},
+						{
+							"name": "AddExistingPlayer Auth",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3MjE3NTA5MDYsImV4cCI6MTcyMTgzNzMwNn0.32LY-3COZbC5AHZnMQJIH5VWG8gFnteqdcVj_8bpZUg"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"playerName\": \"{{existingPlayerName}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8082/players"
+							},
+							"response": []
+						},
+						{
+							"name": "UpdatePlayer Auth",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlcmljQGVyaWMuY29tIiwiaWF0IjoxNzIxNTk5ODQ2LCJleHAiOjE3MjE2ODYyNDZ9.7pjstj40PqMKcvTiy5KDsbHyXm0w6DKiwSnvBWAHQlE"
+									}
+								},
 								"method": "PUT",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    {\n        \"playerId\": 3,\n        \"playerName\": \"{{playerName}}\"\n    }\n}",
+									"raw": "{\n    \"playerId\": \"{{playerId}}\",\n    \"playerName\": \"{{playerName}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
 										}
 									}
 								},
-								"url": "http://localhost:8080/players"
+								"url": "http://localhost:8082/players"
 							},
 							"response": []
 						},
 						{
-							"name": "DeletePlayerById",
+							"name": "UpdateNotExistingPlayer Auth",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlcmljQGVyaWMuY29tIiwiaWF0IjoxNzIxNTk5ODQ2LCJleHAiOjE3MjE2ODYyNDZ9.7pjstj40PqMKcvTiy5KDsbHyXm0w6DKiwSnvBWAHQlE"
+									}
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\n{\n    \"playerId\": 150,\n    \"playerName\": \"error\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8082/players"
+							},
+							"response": []
+						},
+						{
+							"name": "UpdatePlayer NonAuth",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"playerId\": 41,\n    \"playerName\": \"JohnDoe\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8082/players"
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteOwnedPlayerById",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlcmljQGVyaWMuY29tIiwiaWF0IjoxNzIxNTk5ODQ2LCJleHAiOjE3MjE2ODYyNDZ9.7pjstj40PqMKcvTiy5KDsbHyXm0w6DKiwSnvBWAHQlE"
+									}
+								},
 								"method": "DELETE",
 								"header": [],
 								"body": {
@@ -102,7 +283,76 @@
 										}
 									}
 								},
-								"url": "http://localhost:8082/player/{{id}}/delete"
+								"url": "http://localhost:8082/players/delete/{{playerId}}"
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteOwnedPlayerById NotExisting",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlcmljQGVyaWMuY29tIiwiaWF0IjoxNzIxNTk5ODQ2LCJleHAiOjE3MjE2ODYyNDZ9.7pjstj40PqMKcvTiy5KDsbHyXm0w6DKiwSnvBWAHQlE"
+									}
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8082/players/delete/150"
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteNonOwnedPlayerById",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlcmljQGVyaWMuY29tIiwiaWF0IjoxNzIxNTk5ODQ2LCJleHAiOjE3MjE2ODYyNDZ9.7pjstj40PqMKcvTiy5KDsbHyXm0w6DKiwSnvBWAHQlE"
+									}
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8082/players/delete/{{playerId}}"
+							},
+							"response": []
+						},
+						{
+							"name": "DeletePlayerById NonAuth",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8082/players/delete/{{playerId}}"
 							},
 							"response": []
 						}
@@ -134,6 +384,9 @@
 								"disableBodyPruning": true
 							},
 							"request": {
+								"auth": {
+									"type": "noauth"
+								},
 								"method": "GET",
 								"header": [],
 								"body": {
@@ -152,6 +405,9 @@
 						{
 							"name": "GetWinnerPlayer",
 							"request": {
+								"auth": {
+									"type": "noauth"
+								},
 								"method": "GET",
 								"header": [],
 								"url": "http://localhost:8082/players/ranking/winner"
@@ -161,6 +417,9 @@
 						{
 							"name": "GetLoserPlayer",
 							"request": {
+								"auth": {
+									"type": "noauth"
+								},
 								"method": "GET",
 								"header": [],
 								"url": "http://localhost:8082/players/ranking/loser"
@@ -175,9 +434,30 @@
 						{
 							"name": "GetAllGamesByPlayerId",
 							"request": {
+								"auth": {
+									"type": "noauth"
+								},
 								"method": "GET",
 								"header": [],
-								"url": "http://localhost:8082/players/{{id}}/games"
+								"url": "http://localhost:8082/players/{{playerId}}/games"
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllGamesByPlayerId NotExistingPlayer",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8082/players/150/games"
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllGamesByPlayerId Empty",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8082/players/{{playerId}}/games"
 							},
 							"response": []
 						}
@@ -192,16 +472,31 @@
 					"name": "Register a new user",
 					"request": {
 						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJudXJAbnVyLmNvbSIsImlhdCI6MTcyMTU4MDAwMSwiZXhwIjoxNzIxNjY2NDAxfQ.gnPHn472cAY9qX27HL5aXjyTYei_sbnht1-bMMuWW1Y"
-							}
+							"type": "noauth"
 						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"userName\": \"nur\",\n    \"email\": \"nur@nur.com\",\n    \"password\": \"1234\",\n    \"role\": \"USER\"\n}",
+							"raw": "{\n    \"userName\": \"{{UserName}}\",\n    \"email\": \"{{email@email.com}}\",\n    \"password\": \"{{password}}\",\n    \"role\": \"USER\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8082/diceGame/auth/register"
+					},
+					"response": []
+				},
+				{
+					"name": "Register an existing user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userName\": \"eric\",\n    \"email\": \"eric@eric.com\",\n    \"password\": \"0404\",\n    \"role\": \"USER\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -219,7 +514,25 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"eriki@eriki.com\",\n    \"password\": \"2018\"\n}",
+							"raw": "{\n    \"email\": \"{{eric@eric.com}}\",\n    \"password\": \"{{0404}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8082/diceGame/auth/logIn"
+					},
+					"response": []
+				},
+				{
+					"name": "LogIn with wrong user details",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"eriki@eriki.com\",\n    \"password\": \"2024\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"

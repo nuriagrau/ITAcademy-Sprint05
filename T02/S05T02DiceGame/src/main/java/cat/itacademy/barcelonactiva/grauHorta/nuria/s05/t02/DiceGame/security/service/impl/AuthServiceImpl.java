@@ -70,6 +70,7 @@ public class AuthServiceImpl implements AuthService {
                 .build();
         userRepository.save(user);
         String jwtToken = jwtService.generateToken(user);
+
         return AuthResponse.builder()
                 .token(jwtToken)
                 .build();
@@ -92,6 +93,5 @@ public class AuthServiceImpl implements AuthService {
                 .token(jwtToken)
                 .build();
     }
-
 
 }

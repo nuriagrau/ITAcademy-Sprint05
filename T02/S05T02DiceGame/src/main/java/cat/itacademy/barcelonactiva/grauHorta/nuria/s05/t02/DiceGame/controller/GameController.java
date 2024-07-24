@@ -15,7 +15,6 @@ import java.util.List;
 @RequestMapping("/players/")
 public class GameController {
 
-
     private GameService gameService;
 
     @Autowired
@@ -25,7 +24,6 @@ public class GameController {
 
     @Operation(summary = "Add a new game to a player")
     @PostMapping(path="{id}/games/")
-    // POST /players/{id}/games/ : un jugador/a específic realitza una tirada dels daus.
     public ResponseEntity<GameDTO> createGame(@PathVariable int id) {
 
         return new ResponseEntity<>(gameService.createGame(id), HttpStatus.CREATED);
@@ -34,7 +32,6 @@ public class GameController {
 
     @Operation(summary = "Delete all games of a player")
     @DeleteMapping("{id}/games")
-    // DELETE /players/{id}/games: elimina les tirades del jugador/a.
     public ResponseEntity<Integer> deleteAllGamesOfAPlayer(@PathVariable int id){
 
         return new ResponseEntity<>(gameService.deleteAllGamesByPlayerId(id), HttpStatus.OK);
@@ -43,7 +40,6 @@ public class GameController {
 
     @Operation(summary = "Get All Games of a Player")
     @GetMapping("{id}/games")
-    // GET /players/{id}/games: retorna el llistat de jugades per un jugador/a.
     public ResponseEntity<List<GameDTO>> getAllGamesByPlayerId(@PathVariable int id) {
 
         return new ResponseEntity<>(gameService.getAllGamesByPlayer(id), HttpStatus.OK);

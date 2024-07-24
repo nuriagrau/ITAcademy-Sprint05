@@ -19,12 +19,9 @@ public class GameRepositoryUnitTest {
 
     @Autowired
     private GameRepository gameRepository;
-
-
     Game savedGame;
     Game returnedGame;
 
-    //    Optional<List<Game>> findByPlayerId(int playerId);
 
     @DisplayName("GameRepositoryUnitTest - Test return game list")
     @Test
@@ -51,7 +48,7 @@ public class GameRepositoryUnitTest {
         assertEquals(savedGame.getDice1(), returnedGame.getDice1());
     }
 
-    //    void deleteAllByPlayerId(int playerId);
+
     @DisplayName("GameRepositoryUnitTest - Test delete all games of a player")
     @Test
     @WithMockUser(roles = "ADMIN")
