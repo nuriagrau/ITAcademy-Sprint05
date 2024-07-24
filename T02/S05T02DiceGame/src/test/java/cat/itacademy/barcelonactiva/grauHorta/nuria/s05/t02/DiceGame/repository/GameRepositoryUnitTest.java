@@ -22,6 +22,7 @@ public class GameRepositoryUnitTest {
     Game savedGame;
     Game returnedGame;
 
+    //fer test en h2
 
     @DisplayName("GameRepositoryUnitTest - Test return game list")
     @Test

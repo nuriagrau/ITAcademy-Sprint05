@@ -32,9 +32,10 @@ public class GameController {
 
     @Operation(summary = "Delete all games of a player")
     @DeleteMapping("{id}/games")
-    public ResponseEntity<Integer> deleteAllGamesOfAPlayer(@PathVariable int id){
+    public ResponseEntity<String> deleteAllGamesOfAPlayer(@PathVariable int id){
+        gameService.deleteAllGamesByPlayerId(id);
 
-        return new ResponseEntity<>(gameService.deleteAllGamesByPlayerId(id), HttpStatus.OK);
+        return new ResponseEntity<>(("All games deleted successfully for player id:" + id), HttpStatus.OK);
     }
 
 

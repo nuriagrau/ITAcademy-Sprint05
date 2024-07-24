@@ -19,5 +19,5 @@ public interface PlayerService {
 
     PlayerDTO getWinner();
 
-    int deletePlayer(int playerId);
+    void deletePlayer(int playerId);
 }

@@ -391,7 +391,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"playerName\": \"{{playerName}}\"\n}",
+									"raw": "",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -510,11 +510,17 @@
 				{
 					"name": "LogIn",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJib29AYm9vLmNvbSIsImlhdCI6MTcyMTgyMTg0OCwiZXhwIjoxNzIxOTA4MjQ4fQ.DDcrHm3qflIniXE3GXPtq1N1A25A7zdfDd4iWfBbi4g"
+							}
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"{{eric@eric.com}}\",\n    \"password\": \"{{0404}}\"\n}",
+							"raw": "{\n    \"email\": \"eric@eric.com\",\n    \"password\": \"0404\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"

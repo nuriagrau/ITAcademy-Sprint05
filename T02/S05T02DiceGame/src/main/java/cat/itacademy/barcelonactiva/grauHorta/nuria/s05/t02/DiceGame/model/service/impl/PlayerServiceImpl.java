@@ -102,7 +102,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     @PreAuthorize("@securityService.isPlayerOwner(#playerId) || hasRole('ADMIN')")
-    public int deletePlayer(int playerId) {
+    public void deletePlayer(int playerId) {
         Player existingPlayer = playerRepository.findById(playerId)
                 .orElseThrow(() -> new PlayerNotFoundException("Player with id " + playerId + " not found"));
 
@@ -114,6 +114,5 @@ public class PlayerServiceImpl implements PlayerService {
         gameRepository.deleteAllByPlayerId(playerId);
         playerRepository.delete(existingPlayer);
 
-        return playerId;
     }
 }
