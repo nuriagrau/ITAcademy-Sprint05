@@ -46,8 +46,8 @@ public class PlayerServiceImpl implements PlayerService {
         Player newPlayer = playerMapper.toEntity(playerDto);
         if (newPlayer.getPlayerName() != null && !(newPlayer.getPlayerName().isBlank())) { // something is wrong and if is null checks if exists
             playerRepository.findByPlayerNameIgnoreCase(newPlayer.getPlayerName())
-                    .ifPresent(foundPlayer -> {
-                        throw new PlayerAlreadyExistsException("The player " + playerDto.getPlayerName() + " already exists.");
+                    .ifPresent(p -> {
+                        throw new PlayerAlreadyExistsException("The player " + p.getPlayerName() + " already exists.");
                     });
         }
         if (newPlayer.getPlayerName() == null || newPlayer.getPlayerName().isBlank()) {
