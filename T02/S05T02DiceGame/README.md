@@ -6,9 +6,7 @@ _S05_T02_DiceGame_
 Advanced Spring Framework
 Final project: Game of dice
 
-********************************************************************************************
 This is your final project, an API 100% designed by you where you will apply everything you have learned so far to create a complete application, from the database to security. Apply everything you know and even what is not asked.
-********************************************************************************************
 
 The dice game is played with two dice. If the result of the sum of the two dice is 7, the game is won, otherwise, it is lost. A player can see a list of all the rolls he has made and the percentage of success. To be able to play the game and make a roll, a user must register with a non-repeated number. When it is created, it is assigned a unique numerical identifier and a registration date. If the user wishes, he can not add any number and it will be called "ANONYMOUS". There can be more than one "ANONYMOUS" player.
 
