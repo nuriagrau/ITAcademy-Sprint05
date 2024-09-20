@@ -2,6 +2,36 @@
 
 _S05_T02_DiceGame_
 
+## Brief
+Advanced Spring Framework
+Final project: Game of dice
+
+This is your final project, an API 100% designed by you where you will apply everything you have learned so far to create a complete application, from the database to security. Apply everything you know and even what is not asked.
+
+The dice game is played with two dice. If the result of the sum of the two dice is 7, the game is won, otherwise, it is lost. A player can see a list of all the rolls he has made and the percentage of success. To be able to play the game and make a roll, a user must register with a non-repeated number. When it is created, it is assigned a unique numerical identifier and a registration date. If the user wishes, he can not add any number and it will be called "ANONYMOUS". There can be more than one "ANONYMOUS" player.
+
+Each player can see a list of all the rolls he has made, with the value of each die and whether or not he has won the game. In addition, you can see your percentage of success for all the runs you have made.
+
+You cannot delete a specific game, but you can delete the entire list of rolls of a player.
+
+The software should be able to list all the players in the system, the success percentage of each player and the average success percentage of all the players in the system.
+
+The software must respect the main design patterns. You must take into account the following construction details (URL's):
+
+ POST /players: Create a player.
+ PUT /players: Change the player number.
+ POST /players/{id}/games: A specific player makes a dice roll.
+ DELETE /players/{id}/games: deletes the player's rolls.
+ GET /players/: returns the list of all players in the system with their percentage of success.
+ GET /players/{id}/games: returns the list of games played by a player.
+ GET /players/ranking: returns the percentage of the average success of all players in the system.
+ GET /players/ranking/loser: returns the player with the worst success rate.
+ GET /players/ranking/winner: returns the player with the best percentage of success.
+
+Adds security: includes authentication by JWT in all accesses to the URLs of the microservice.
+
+Design the project diversifying persistence so that it uses two database schemes at the same time: MySQL and MongoDB.
+
 ## Starting...
 
 _CRUD maintenance of DiceGame_
