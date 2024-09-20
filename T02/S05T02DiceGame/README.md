@@ -18,15 +18,15 @@ The software should be able to list all the players in the system, the success p
 
 The software must respect the main design patterns. You must take into account the following construction details (URL's):
 
- POST /players: Create a player.
- PUT /players: Change the player number.
- POST /players/{id}/games: A specific player makes a dice roll.
- DELETE /players/{id}/games: deletes the player's rolls.
- GET /players/: returns the list of all players in the system with their percentage of success.
- GET /players/{id}/games: returns the list of games played by a player.
- GET /players/ranking: returns the percentage of the average success of all players in the system.
- GET /players/ranking/loser: returns the player with the worst success rate.
- GET /players/ranking/winner: returns the player with the best percentage of success.
+ POST /players: Create a player
+ PUT /players: Change the player number
+ POST /players/{id}/games: A specific player makes a dice roll
+ DELETE /players/{id}/games: deletes the player's rolls
+ GET /players/: returns the list of all players in the system with their percentage of success
+ GET /players/{id}/games: returns the list of games played by a player
+ GET /players/ranking: returns the percentage of the average success of all players in the system
+ GET /players/ranking/loser: returns the player with the worst success rate
+ GET /players/ranking/winner: returns the player with the best percentage of success
 
 Adds security: includes authentication by JWT in all accesses to the URLs of the microservice.
 
